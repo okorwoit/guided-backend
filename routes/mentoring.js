@@ -1,20 +1,32 @@
 // All routes related to managing mentoring opportunities,such as creating, updating, and deleting them, are defined here
-const express = require('express');
-const router = express.Router();
+const { Router } = require('express');
+const router = Router();
 
-// Import the model
-const MentoringOpportunity = require('../models/mentoringOpportunity');
+// Import the MentoringOpportunity model
+const MentoringOpportunity = require('../models/MentoringOpportunity');
 
-// Import the mentoring controller
-const mentoringController = require('../controllers/mentoringController');
+// Import the mentoring controller 
+const {
+  createMentoringOpportunity,
+  updateMentoringOpportunity,
+  deleteMentoringOpportunity,
+  getAllMentoringOpportunities,
+  getMentoringOpportunityById,
+} = require('../controllers/mentoringController');
 
 // Route to create a mentoring opportunity
-router.post('/create', mentoringController.createMentoringOpportunity);
+router.post('/', createMentoringOpportunity);
 
 // Route to update a mentoring opportunity
-router.put('/:opportunityId', mentoringController.updateMentoringOpportunity);
+router.patch('/:opportunityId', updateMentoringOpportunity);
 
 // Route to delete a mentoring opportunity
-router.delete('/:opportunityId', mentoringController.deleteMentoringOpportunity);
+router.delete('/:opportunityId', deleteMentoringOpportunity);
+
+// Route to get all mentoring opportunities
+router.get('/', getAllMentoringOpportunities);
+
+// Route to get a specific mentoring opportunity by ID
+router.get('/:opportunityId', getMentoringOpportunityById);
 
 module.exports = router;
